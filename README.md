@@ -16,7 +16,9 @@ O repositório inclui os seguintes arquivos principais:
 | `preprocess.py` | Pré‑processamento dos dados antes de treinar o modelo. 
 | `features_target.py` | Seleção de features e definição do target (variável de saída).
 | `train_test.py` | Treinamento e avaliação de modelos de ML. 
-| `plots.py` | Visualizações e gráficos para análise. 
+| `plots.py` | Visualizações e gráficos para análise.
+| `plots_models.py` | Visualizações e gráficos para análise dos modelos.
+| `models_compare.py` | Comparacao dos modelos. 
 | `main.py` | Script principal para rodar todo o pipeline
 
 ---
