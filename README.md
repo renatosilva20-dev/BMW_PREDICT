@@ -1,6 +1,6 @@
 #  BMW_PREDICT
 
-📊Projeto pessoal de **Machine Learning** para análise e predição com dados de vendas globais da BMW com o objetivo de preditar quais carros irao vender mais, dividos em HIGH e LOW.
+📊Projeto pessoal de **Machine Learning** para análise e predição com dados de vendas globais da BMW com o objetivo de preditar niveis de vendas, dividos em HIGH e LOW.
 
 Este repositório contém um pipeline completo de Machine Learning em Python para carregar, pré‑processar, treinar e avaliar modelos preditivos com dados de vendas da BMW entre 2018 e 2025
 ---
