@@ -1,0 +1,67 @@
+O intuito deste modelo e realizar a predicao de vendas nos anos seguintes a partir dos dados de 2018 a 2025, classificados como HIGH ou LOW.
+
+Explicacao do codigo:
+    - Arquivo load_data.py:
+        Arquivo onde sera carregado o csv para a analise.
+    - Arquivo features_target.py:
+        Neste arquivo sao realizados as features engineers para a conclusao da predicao.
+        Sales_prev_year:
+            Pega o valor de Units_Sold 12 meses atrás.
+            Ex.: se estamos olhando março de 2025, pega março de 2024.
+            Por que é útil: permite que o modelo veja o histórico imediato para prever se a próxima volumetria será alta ou baixa.
+            É a forma mais direta de “memória” temporal.
+        Sales_pct_change:
+            Calcula a variação percentual em relação ao mesmo mês do ano anterior.
+            Fórmula: (Units_Sold_ano_atual - Units_Sold_ano_passado) / Units_Sold_ano_passado
+            Por que é útil: indica crescimento ou queda no período, mostrando tendências de mercado.
+        MA3 (Média Móvel 3 meses):
+            Média das vendas nos últimos 3 meses consecutivos.
+            Suaviza variações bruscas e ajuda o modelo a perceber tendências curtas.
+            Ex.: se janeiro, fevereiro e março foram vendas altas, MA3 reflete isso, mesmo que março tenha uma queda isolada.
+        Growth:
+            Crescimento relativo ano a ano: (Units_Sold_ano_atual - Units_Sold_ano_passado) / Units_Sold_ano_passado
+            Similar a Sales_pct_change, mas mantém como feature contínua e já normalizada para aprendizado.
+        Variavel le:
+            Responsavel para alterar o HIGH e LOW para 0 e 1.
+        Variaveis X e y:
+            X recebendo nossas features e y sendo nosso target
+    - Arquivo preprocess.py:
+        Pré-processamento de dados numéricos:
+            Trata valores faltantes usando imputação com a mediana.
+            Normaliza os dados com StandardScaler, garantindo que todas as features numéricas tenham média 0 e desvio padrão 1.
+            Exemplo de features numéricas: Year, Month, Avg_Price_EUR, BEV_Share, GDP_Growth, Sales_prev_year, MA3, Growth.
+        Pré-processamento de dados categóricos:
+            Trata valores faltantes com a categoria mais frequente.
+            Converte categorias em variáveis numéricas usando OneHotEncoder, permitindo que modelos matemáticos processem atributos como Region e Model.
+        Pipeline modular:
+            A função preprocess() retorna um ColumnTransformer que aplica as transformações corretas a cada tipo de dado (numérico ou categórico).
+            A função create_pipeline(model, feature_selector) permite:
+            Adicionar um modelo de aprendizado (ex: XGBoost, Random Forest, SVM, Logistic Regression).
+            Seleção automática de features importantes usando SelectFromModel (opcional).
+    - Arquivo train_test.py:
+        Contém funções para treinar, avaliar e analisar modelos de machine learning usando os dados pré-processados. Ele é responsável por medir a performance dos modelos e fornecer informações detalhadas sobre previsões
+        tune_model(pipeline, X_train, y_train):
+            Realiza otimização de hiperparâmetros usando GridSearchCV com divisão temporal (TimeSeriesSplit), garantindo que o treino utilize apenas dados passados.
+            Permite ajustar parâmetros de modelos como XGBoost, Random Forest ou outros.
+            Retorna o modelo treinado com os melhores parâmetros encontrados.
+        evaluate_model(modelo, X_test, y_test):
+        Avalia a performance do modelo no conjunto de teste.
+        Calcula e imprime:
+            Acurácia
+            Classification Report (precision, recall, f1-score)
+            Confusion Matrix
+        Fornece métricas detalhadas para entender a capacidade do modelo em prever alta ou baixa volumetria.
+        feature_importance(modelo):
+            Mostra as features mais importantes que o modelo utilizou para tomar decisões.
+            Compatível com modelos baseados em árvores (XGBoost, Random Forest, Decision Tree).
+            Ajuda a identificar quais variáveis têm maior impacto nas previsões.
+    - Arquivo plots.py e plots_models.py:
+        Gerar os plots dos resultados.
+    - Arquivo main.py:
+         o ponto central do projeto, responsável por orquestrar todo o fluxo de machine learning: desde a carga dos dados, pré-processamento, criação de features, treino e avaliação de modelos, até a visualização dos resultados.
+
+Conclusao:
+De acordo com os dados e com a predicao dos modelos, as vendas nos anos seguintes da BMW serao mais altas do que baixas.
+
+Principal aprendizado:
+    Antes da melhoria das features temporais a acc dos testes ficavam estagnados em ~= 57%, quase um chute de 50/50. Apos a melhoria da feature engineer, os resultados foram de 57% para 98%, considerando-se um modelo mais confiavel para decisões.
