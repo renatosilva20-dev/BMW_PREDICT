@@ -2,9 +2,6 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
 def features_target(df):
-    df["Price_per_GDP"] = df["Avg_Price_EUR"] / (df["GDP_Growth"] + 0.01)
-    df["EV_Premium"] = df["BEV_Share"] * df["Premium_Share"]
-    df["Fuel_vs_EV"] = df["Fuel_Price_Index"] * df["BEV_Share"]
     df["Market_Trend"] = df["Year"] * df["Month"]
 
     df = df.sort_values(by=["Year", "Month"]).reset_index(drop=True)
