@@ -55,12 +55,3 @@ def create_pipeline(model=None, feature_selector=True):
             random_state=42
         )
 
-    steps = [("preprocess", preprocess())]
-
-    #if feature_selector:
-        #steps.append(("feature_selection", SelectFromModel(RandomForestClassifier(n_estimators=100))))
-
-    #steps.append(("model", model))
-
-    #pipe = Pipeline(steps)
-    #return pipe
