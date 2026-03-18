@@ -22,7 +22,7 @@ def plot_confusion_matrix(model, X_test, y_test):
     )
 
     plt.xlabel("Predicted")
-    plt.ylabel("Actual")
+    plt.ylabel("Current")
     plt.title("Confusion Matrix")
 
     plt.show()
@@ -46,14 +46,5 @@ def plot_feature_importance(model):
     plt.gca().invert_yaxis()
 
     plt.title("Top 15 Feature Importance")
-
-    plt.show()
-
-
-def plot_class_distribution(y):
-
-    sns.countplot(x=y)
-
-    plt.title("Sales Classification Distribution")
 
     plt.show()

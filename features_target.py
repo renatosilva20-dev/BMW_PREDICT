@@ -12,7 +12,7 @@ def features_target(df):
     df["Growth"] = df["Units_Sold"].diff(periods=12) / df["Units_Sold"].shift(12)
 
     df["sales_classification"] = df["Units_Sold"].apply(
-        lambda x: "High" if x > df["Units_Sold"].median() else "Low"
+        lambda x: "High" if x > df["Units_Sold"].mean() else "Low"
     )
 
     le = LabelEncoder()
@@ -23,4 +23,4 @@ def features_target(df):
     X = df.drop(["sales_classification", "Units_Sold", "Revenue_EUR"], axis=1)
     y = df["sales_classification"]
 
-    return X, y
+    return X, y, le

@@ -26,12 +26,11 @@ def tune_model(pipeline, X_train, y_train, param_grid=None, n_splits=3):
 
     return grid.best_estimator_
 
-def evaluate_model(modelo, X_test, y_test):
-    predictions = modelo.predict(X_test)
+def evaluate_model(model, X_test, y_test):
+    predictions = model.predict(X_test)
     accuracy = accuracy_score(y_test, predictions)
-    print("\nAccuracy:", accuracy)
+    print("\nAccuracy:{:.2f}".format(accuracy))
     print("\nClassification Report:\n", classification_report(y_test, predictions))
-    print("\nConfusion Matrix:\n", confusion_matrix(y_test, predictions))
     return accuracy
 
 def feature_importance(modelo):

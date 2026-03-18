@@ -57,10 +57,10 @@ def create_pipeline(model=None, feature_selector=True):
 
     steps = [("preprocess", preprocess())]
 
-    if feature_selector:
-        steps.append(("feature_selection", SelectFromModel(RandomForestClassifier(n_estimators=100))))
+    #if feature_selector:
+        #steps.append(("feature_selection", SelectFromModel(RandomForestClassifier(n_estimators=100))))
 
-    steps.append(("model", model))
+    #steps.append(("model", model))
 
-    pipe = Pipeline(steps)
-    return pipe
+    #pipe = Pipeline(steps)
+    #return pipe
