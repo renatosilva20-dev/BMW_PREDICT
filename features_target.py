@@ -23,4 +23,4 @@ def features_target(df):
     X = df.drop(["sales_classification", "Units_Sold", "Revenue_EUR"], axis=1)
     y = df["sales_classification"]
 
-    return X, y
+    return X, y, le

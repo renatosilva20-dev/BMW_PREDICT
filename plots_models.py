@@ -1,28 +1,7 @@
 from sklearn.metrics import confusion_matrix
-from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
-
-
-def plot_random_forest_tree(model, tree_index=0):
-
-    rf_model = model.named_steps["model"]
-
-    tree = rf_model.estimators_[tree_index]
-
-    plt.figure(figsize=(20,10))
-
-    plot_tree(
-        tree,
-        filled=True,
-        max_depth=3,
-        fontsize=10
-    )
-
-    plt.title(f"Random Forest Tree {tree_index}")
-
-    plt.show()
 
 
 def plot_model_comparison(results_df):
@@ -35,7 +14,7 @@ def plot_model_comparison(results_df):
         data=results_df
     )
 
-    plt.title("Model Comparison")
+    plt.title("Comparison of the models")
 
     plt.show()
 
@@ -60,7 +39,7 @@ def plot_models_results(trained_models, X_test, y_test):
         plt.title(f"Confusion Matrix - {name}")
 
         plt.xlabel("Predicted")
-        plt.ylabel("Actual")
+        plt.ylabel("Current")
 
         plt.show()
 
@@ -87,29 +66,5 @@ def plot_feature_importance_models(trained_models):
             plt.title(f"Feature Importance - {name}")
 
             plt.gca().invert_yaxis()
-
-            plt.show()
-
-
-def plot_tree_models(trained_models):
-
-    for name, model in trained_models.items():
-
-        if hasattr(model.named_steps["model"], "estimators_"):
-
-            tree = model.named_steps["model"].estimators_[0]
-            feature_names = model.named_steps["preprocess"].get_feature_names_out()
-
-            plt.figure(figsize=(18,8))
-
-            plot_tree(
-                tree,
-                filled=True,
-                max_depth=3,
-                fontsize=9,
-                feature_names=feature_names
-            )
-
-            plt.title(f"Tree Visualization - {name}")
 
             plt.show()
