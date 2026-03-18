@@ -50,5 +50,5 @@ plot_feature_importance_models(trained_models)
 
 #save e load model
 from save import save_model, load_model
-#save_model(best_model, le) 
+save_model(best_model, le) 
 load_model(X_test)
